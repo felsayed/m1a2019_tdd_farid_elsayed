@@ -3,14 +3,42 @@ package fr.p10.miage.rps.tests;
 import fr.p10.miage.rps.model.RPSEnum;
 import fr.p10.miage.rps.model.Result;
 import fr.p10.miage.rps.model.RockPaperScissors;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static org.testng.Assert.*;
 
 public class RockPaperScissorsTest {
+
+    @DataProvider(name="winData")
+            public Object[][]createWinData(){
+        return new Object[][]{
+                {RPSEnum.ROCK,RPSEnum.SCISSORS},
+                {RPSEnum.PAPER,RPSEnum.ROCK},
+                {RPSEnum.SCISSORS,RPSEnum.PAPER}
+        };
+    }
+    @DataProvider(name="tieData")
+            public Object[][] createTieData(){
+        return new Object[][]{
+                {RPSEnum.ROCK,RPSEnum.SCISSORS},
+                {RPSEnum.PAPER,RPSEnum.ROCK},
+                {RPSEnum.SCISSORS,RPSEnum.PAPER}
+        };
+
+    }
+
+    @DataProvider(name="lostData")
+            public Object[][]createLostData(){
+        return new Object[][]{
+                {RPSEnum.SCISSORS,RPSEnum.ROCK},
+                {RPSEnum.ROCK,RPSEnum.PAPER},
+                {RPSEnum.PAPER,RPSEnum.SCISSORS}
+        };
+    }
+
+
+
+
 
     //RockPaperScissorsTest rps;
     RockPaperScissors rps;
@@ -60,9 +88,5 @@ public class RockPaperScissorsTest {
     void testLostPlay(RPSEnum p1,RPSEnum p2){
         assertEquals(rps.play(p1,p2),Result.LOST);
     }
-        // il faut faire ça pour chaque provider 
-    /*@DataProvider(name = "winData")
-    public static Object[][] subtractMethodDataProvider() {
-        return new Object[][] { { PAPER, ROCK}, { ROCK, PAPER}, { ,  } };
-    }*/
+
 }
